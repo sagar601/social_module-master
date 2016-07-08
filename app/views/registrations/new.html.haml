@@ -1,0 +1,29 @@
+%h2 Sign up
+#local2.box
+  = form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+    = devise_error_messages!
+    %p
+      = f.label :login
+      = f.text_field :login
+    %p
+      = f.label :fullname
+      = f.text_field :fullname
+    %p
+      = f.label :email
+      = f.text_field :email
+    %p
+      = f.label :password
+      = f.password_field :password
+    %p
+      = f.label :password_confirmation
+      = f.password_field :password_confirmation
+
+      - if resource.services.first
+        = f.fields_for :services, :as => resource.services.first do |ff|
+          = ff.hidden_field :provider
+          = ff.hidden_field :uid
+          = ff.hidden_field :credentials
+
+    %p= f.submit "Sign up"
+#devise_links
+  =render :partial => "devise/shared/links"
